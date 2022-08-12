@@ -1,0 +1,68 @@
+---
+title: "Unit test intro"
+format: html
+editor: visual
+---
+
+## Unit Testing with testthat
+
+```{r}
+library(testthat)
+
+```
+
+Creating a function to calculate mean, and min/max of means
+
+```{r}
+
+mean_range <- function(df){
+  col_means <- apply(X = df, MARGIN =2, FUN = mean, na.rm = TRUE)
+  col_means_max <- max(col_means)
+  col_mean_min <- min(col_means)
+  print(c(col_means_max, col_mean_min))
+}
+
+# creating a funciton that just expects a data frame then use the apply function to look at the 
+
+mean_range(mtcars)
+
+```
+
+```{r}
+
+expect_length(mean_range(mtcars), 2)
+# testing the length of the output
+
+```
+
+```{r}
+
+expect_true(mean_range(mtcars)[1] >= mean_range(mtcars)[2])
+
+# testing to make sure that the mean range that the first value is great than the second value
+
+```
+
+```{r}
+
+expect_vector(mean_range(mtcars), size = 2)
+
+# testing out a if we get a vector output with a size of 2
+
+```
+
+```{r}
+
+expect_type(mean_range(mtcars), "double")
+
+# expect type requires 
+
+```
+
+```{r}
+
+expect_true(mean_range(mtcars), is.character())
+
+# using the expect true to test out type is.character asks if it is a character and typeof is a question asking is it a type 
+
+```
