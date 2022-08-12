@@ -31,7 +31,7 @@ fish_leslie
 The initial population structure is given by: 
 ```{r}
 # Initial population structure (Roe, Fry, Juvenile, Adult): 
-fish_year0 <- c(5000, 8000, 600, 400)
+fish_year0 <- c(2000, 7000, 2, 5)
 ```
 
 
@@ -44,19 +44,23 @@ Add line-by-line comments wheres prompted in the code below, explaining what eac
 # ------ comment line-by-line ---- #
 
 # The line below...
-time_yr <- seq(from = 0, to = 8, by = 1)
+time_yr <- seq(from = 0, to = 50, by = 1)
 
 # The line below...
+# create a shell matrix for the output
 proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))
 
-# The line below...
+# The line below is populating the first row of project year with fish year_year0, it is populating in the first row
 proj_year[1, ] <- fish_year0
 
-# The for loop below...
+# The for loop below starting at 2 because the first row is already populated with the first time at zero - we don't want it to over write the initial population
 for (i in 2:length(time_yr)) {
   proj_year[i,] <- fish_leslie %*% proj_year[i-1,]
 }
 
+# looping over starting at fish Leslie then you take the dot product with the first row of that matrix (ie. the initial years for year 0)
+
+# using the matrix multiplication (ie. dot product), to find the populations from the previous years
 
 # The rest is wrangling & visualization (run to check it out):
 colnames(proj_year) <- c("eggs", "fry", "juvenile", "adult")
